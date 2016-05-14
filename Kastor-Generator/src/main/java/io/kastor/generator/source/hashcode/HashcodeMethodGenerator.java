@@ -1,28 +1,22 @@
 package io.kastor.generator.source.hashcode;
 
 
-import io.kastor.annotation.KastorIdentity;
+import io.kastor.generator.source.AbstractMethodGenerator;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 
-import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-public class HashcodeMethodGenerator {
+public class HashcodeMethodGenerator extends AbstractMethodGenerator {
 
-   public void generateFor(TypeElement element, JavaClassSource javaClass) {
-      MethodSource<JavaClassSource> method = createMethodSignature(element, javaClass);
-
-      addNullObjectHashCode(method);
-
-      addFieldHashCodes(element, method);
+   public HashcodeMethodGenerator(TypeElement element, JavaClassSource javaClass) {
+      super(element, javaClass);
    }
 
-   private MethodSource<JavaClassSource> createMethodSignature(TypeElement element, JavaClassSource javaClass) {
+   @Override
+   protected MethodSource<JavaClassSource> getMethodSignature(TypeElement element, JavaClassSource javaClass) {
       MethodSource<JavaClassSource> method = javaClass.addMethod()
             .setPublic()
             .setStatic(true)
@@ -33,27 +27,21 @@ public class HashcodeMethodGenerator {
       return method;
    }
 
-   private void addNullObjectHashCode(MethodSource<JavaClassSource> equalityMethod) {
-      equalityMethod.setBody("if (o == null) { return 0; }");
+   @Override
+   protected void addMethodStart() {
+      addLine("if (o == null) { return 0; }");
+      addLine("int result = 1;");
    }
 
-   private void addFieldHashCodes(TypeElement element, MethodSource<JavaClassSource> equalityMethod) {
-      List<String> fieldComparisons = createFieldComparisons(element);
-      String body = equalityMethod.getBody() + "int result = 1;" + String.join(" ", fieldComparisons) + " return result;";
-      equalityMethod.setBody(body);
+   @Override
+   protected void addMethodEnd() {
+      addLine("return result;");
    }
 
-   private List<String> createFieldComparisons(TypeElement element) {
-      KastorIdentity annotation = element.getAnnotation(KastorIdentity.class);
-
-      return element.getEnclosedElements().stream()
-            .filter(e -> e.getKind() == ElementKind.FIELD)
-            .filter(e -> Arrays.asList(annotation.includeFields()).contains(e.toString()))
-            .filter(e -> !Arrays.asList(annotation.excludeFields()).contains(e.toString()))
-            .map(field -> FieldHashcodeFactory.get(field).getFieldHashcode(field))
-            .filter(Optional::isPresent)
-            .map(Optional::get)
-            .map(c -> "result = 31 * result + " + c + ";")
-            .collect(Collectors.toList());
+   @Override
+   protected Optional<String> getFieldOperation(Element field) {
+      return FieldHashcodeFactory.get(field).getFieldHashcode(field)
+            .map(c -> "result = 31 * result + " + c + ";");
    }
+
 }

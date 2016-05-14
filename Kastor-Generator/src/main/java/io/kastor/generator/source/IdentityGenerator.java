@@ -15,8 +15,8 @@ public class IdentityGenerator {
 
    public GeneratedClass generateFor(TypeElement element) {
       final JavaClassSource javaClass = createClass(element);
-      new EqualityMethodGenerator().generateFor(element, javaClass);
-      new HashcodeMethodGenerator().generateFor(element, javaClass);
+      new EqualityMethodGenerator(element, javaClass).generate();
+      new HashcodeMethodGenerator(element, javaClass).generate();
 
       return new GeneratedClass(javaClass.getQualifiedName(), javaClass.toString());
    }
