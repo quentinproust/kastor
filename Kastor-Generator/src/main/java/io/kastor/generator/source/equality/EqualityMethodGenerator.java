@@ -42,7 +42,7 @@ public class EqualityMethodGenerator extends AbstractMethodGenerator {
 
    @Override
    protected Optional<String> getFieldOperation(Element field) {
-      return FieldEqualityFactory.get(field).getFieldComparisons(field)
+      return FieldEqualityFactory.get(field).getFieldOperation(field)
             .map(c -> "if (!(" + c + ")) { return false; }");
    }
 }

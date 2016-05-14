@@ -40,7 +40,7 @@ public class HashcodeMethodGenerator extends AbstractMethodGenerator {
 
    @Override
    protected Optional<String> getFieldOperation(Element field) {
-      return FieldHashcodeFactory.get(field).getFieldHashcode(field)
+      return FieldHashcodeFactory.get(field).getFieldOperation(field)
             .map(c -> "result = 31 * result + " + c + ";");
    }
 

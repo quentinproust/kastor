@@ -27,19 +27,7 @@ public class PrimitiveDataTypes {
 
    @Override
    public int hashCode() {
-      int result;
-      long temp;
-      result = (int) aByte;
-      result = 31 * result + (int) aShort;
-      result = 31 * result + anInt;
-      result = 31 * result + (int) (aLong ^ (aLong >>> 32));
-      result = 31 * result + (aFloat != +0.0f ? Float.floatToIntBits(aFloat) : 0);
-      temp = Double.doubleToLongBits(aDouble);
-      result = 31 * result + (int) (temp ^ (temp >>> 32));
-      result = 31 * result + (int) aChar;
-      result = 31 * result + (aBoolean ? 1 : 0);
-      result = 31 * result + (bigDecimal != null ? bigDecimal.hashCode() : 0);
-      return result;
+      return PrimitiveDataTypesIdentity.hashCode(this);
    }
 
    public BigDecimal getBigDecimal() {
