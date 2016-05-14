@@ -2,6 +2,8 @@ package io.kastor.examples.identity;
 
 import io.kastor.annotation.KastorIdentity;
 
+import java.math.BigDecimal;
+
 @KastorIdentity
 public class PrimitiveDataTypes {
    private byte aByte;
@@ -12,6 +14,41 @@ public class PrimitiveDataTypes {
    private double aDouble;
    private char aChar;
    private boolean aBoolean;
+   private BigDecimal bigDecimal;
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (!(o instanceof PrimitiveDataTypes)) return false;
+
+      PrimitiveDataTypes that = (PrimitiveDataTypes) o;
+      return PrimitiveDataTypesIdentity.equals(this, that);
+   }
+
+   @Override
+   public int hashCode() {
+      int result;
+      long temp;
+      result = (int) aByte;
+      result = 31 * result + (int) aShort;
+      result = 31 * result + anInt;
+      result = 31 * result + (int) (aLong ^ (aLong >>> 32));
+      result = 31 * result + (aFloat != +0.0f ? Float.floatToIntBits(aFloat) : 0);
+      temp = Double.doubleToLongBits(aDouble);
+      result = 31 * result + (int) (temp ^ (temp >>> 32));
+      result = 31 * result + (int) aChar;
+      result = 31 * result + (aBoolean ? 1 : 0);
+      result = 31 * result + (bigDecimal != null ? bigDecimal.hashCode() : 0);
+      return result;
+   }
+
+   public BigDecimal getBigDecimal() {
+      return bigDecimal;
+   }
+
+   public void setBigDecimal(BigDecimal bigDecimal) {
+      this.bigDecimal = bigDecimal;
+   }
 
    public byte getaByte() {
       return aByte;

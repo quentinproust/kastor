@@ -10,6 +10,26 @@ public class Person {
    private String lastName;
    private Gender gender;
    private int age;
+   private Float weight;
+   private Double money;
+
+   private Person bestFriend;
+
+   public Float getWeight() {
+      return weight;
+   }
+
+   public void setWeight(Float weight) {
+      this.weight = weight;
+   }
+
+   public Double getMoney() {
+      return money;
+   }
+
+   public void setMoney(Double money) {
+      this.money = money;
+   }
 
    @Override
    public boolean equals(Object o) {
@@ -22,6 +42,14 @@ public class Person {
    @Override
    public int hashCode() {
       return PersonIdentity.hashCode(this);
+   }
+
+   public Person getBestFriend() {
+      return bestFriend;
+   }
+
+   public void setBestFriend(Person bestFriend) {
+      this.bestFriend = bestFriend;
    }
 
    public String getSocialSecurityNumber() {

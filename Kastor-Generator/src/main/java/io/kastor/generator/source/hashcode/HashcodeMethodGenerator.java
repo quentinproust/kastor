@@ -1,13 +1,11 @@
-package io.kastor.generator.source;
+package io.kastor.generator.source.hashcode;
 
 
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 
-import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
-import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,34 +37,17 @@ public class HashcodeMethodGenerator {
 
    private void addFieldHashCodes(TypeElement element, MethodSource<JavaClassSource> equalityMethod) {
       List<String> fieldComparisons = createFieldComparisons(element);
-      equalityMethod.setBody(equalityMethod.getBody() + " return " + String.join(" + ", fieldComparisons) + ";");
+      String body = equalityMethod.getBody() + "int result = 1;" + String.join(" ", fieldComparisons) + " return result;";
+      equalityMethod.setBody(body);
    }
 
    private List<String> createFieldComparisons(TypeElement element) {
-      String hash = "Objects.hashCode(o.{0})";
-
       return element.getEnclosedElements().stream()
             .filter(e -> e.getKind() == ElementKind.FIELD)
-            .map(e -> getFieldGetter(element, e))
+            .map(field -> FieldHashcodeFactory.get(field).getFieldHashcode(field))
             .filter(Optional::isPresent)
             .map(Optional::get)
-            .map(getter -> MessageFormat.format(hash, getter))
+            .map(c -> "result = 31 * result + " + c + ";")
             .collect(Collectors.toList());
-   }
-
-   private Optional<String> getFieldGetter(TypeElement element, Element field) {
-      return element.getEnclosedElements().stream()
-            .filter(x -> x.getKind() == ElementKind.METHOD)
-            .filter(x -> isFieldGetter(field, x))
-            .map(x -> x.getSimpleName() + "()")
-            .findFirst();
-   }
-
-   private boolean isFieldGetter(Element field, Element method) {
-      String methodName = method.getSimpleName().toString();
-      String getMethodName = "get" + field.getSimpleName().toString();
-      String isMethodName = "is" + field.getSimpleName().toString();
-
-      return methodName.equalsIgnoreCase(getMethodName) || methodName.equalsIgnoreCase(isMethodName);
    }
 }

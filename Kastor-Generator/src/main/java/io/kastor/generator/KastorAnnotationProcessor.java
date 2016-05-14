@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+//io.kastor.generator.KastorAnnotationProcessor
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class KastorAnnotationProcessor extends AbstractProcessor {
 
@@ -38,6 +39,7 @@ public class KastorAnnotationProcessor extends AbstractProcessor {
 
       Logger.withContext(processingEnv);
       GeneratedSourceFile.withContext(processingEnv);
+      ProcessingContext.withContext(processingEnv);
    }
 
    @Override

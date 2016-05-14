@@ -1,6 +1,8 @@
 package io.kastor.generator.source;
 
 
+import io.kastor.generator.source.equality.EqualityMethodGenerator;
+import io.kastor.generator.source.hashcode.HashcodeMethodGenerator;
 import org.jboss.forge.roaster.Roaster;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 
