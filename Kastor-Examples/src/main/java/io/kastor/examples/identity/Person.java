@@ -2,7 +2,10 @@ package io.kastor.examples.identity;
 
 import io.kastor.annotation.KastorIdentity;
 
-@KastorIdentity
+@KastorIdentity(
+      includeFields = {"socialSecurityNumber", "vip", "firstName", "bestFriend"},
+      excludeFields = {"vip", "weight", "money"}
+)
 public class Person {
    private String socialSecurityNumber;
    private boolean vip;

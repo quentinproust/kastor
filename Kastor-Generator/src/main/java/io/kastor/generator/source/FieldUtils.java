@@ -6,6 +6,12 @@ import java.util.Optional;
 
 public class FieldUtils {
 
+   public static boolean exists(Element type, String field) {
+      return type.getEnclosedElements().stream()
+            .filter(x -> x.getKind() == ElementKind.FIELD)
+            .anyMatch(x -> x.toString().equals(field));
+   }
+
    public static Optional<String> getFieldGetter(Element field) {
       return field.getEnclosingElement().getEnclosedElements().stream()
             .filter(x -> x.getKind() == ElementKind.METHOD)
