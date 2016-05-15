@@ -8,6 +8,16 @@ public class CarModel {
    private EngineType engineType;
    private int numberOfWheels;
 
+   private PolutionInformation polutionInformation;
+
+   public PolutionInformation getPolutionInformation() {
+      return polutionInformation;
+   }
+
+   public void setPolutionInformation(PolutionInformation polutionInformation) {
+      this.polutionInformation = polutionInformation;
+   }
+
    public String getCarManufacturer() {
       return carManufacturer;
    }

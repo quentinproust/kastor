@@ -2,9 +2,23 @@ package io.kastor.generator.source;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FieldUtils {
+
+   public static Stream<? extends Element> getFields(Element element) {
+      return element.getEnclosedElements().stream()
+            .filter(e -> e.getKind() == ElementKind.FIELD);
+   }
+
+   public static List<String> getFieldNames(Element element) {
+      return getFields(element)
+            .map(Object::toString)
+            .collect(Collectors.toList());
+   }
 
    public static boolean exists(Element type, String field) {
       return type.getEnclosedElements().stream()

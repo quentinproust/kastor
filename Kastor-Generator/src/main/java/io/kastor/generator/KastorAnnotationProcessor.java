@@ -52,7 +52,7 @@ public class KastorAnnotationProcessor extends AbstractProcessor {
          return false;
       }
 
-      HandlerConfiguration config = new HandlerConfiguration(processingEnv, roundEnv);
+      HandlerConfiguration config = new HandlerConfiguration();
       for (Class annotation : getSupportedAnnotations()) {
          try {
             Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(annotation);
