@@ -23,7 +23,7 @@ public class ComparableGenerator {
 
       generateComparator(element, javaClass);
 
-      return new GeneratedClass(javaClass.getQualifiedName(), javaClass.toString());
+      return new GeneratedClass(javaClass);
    }
 
    private void generateComparator(TypeElement element, JavaClassSource javaClass) {
