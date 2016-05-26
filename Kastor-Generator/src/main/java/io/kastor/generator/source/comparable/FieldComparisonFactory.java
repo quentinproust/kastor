@@ -15,8 +15,12 @@ public class FieldComparisonFactory {
    private static List<FieldStrategy> strategies = Arrays.asList(
          acceptAnnotatedType("Comparator.compare(a.{0}, b.{0})"),
          acceptType("Long.compare(a.{0}, b.{0})", "long"),
-         acceptTypes("Float.compare(a.{0}, b.{0})", "float", "double"),
-         acceptTypes("Integer.compare(a.{0}, b.{0})", "byte", "short", "int"),
+         acceptType("Float.compare(a.{0}, b.{0})", "float"),
+         acceptType("Double.compare(a.{0}, b.{0})", "double"),
+         acceptTypes("Byte.compare(a.{0}, b.{0})", "byte"),
+         acceptTypes("Character.compare(a.{0}, b.{0})", "char"),
+         acceptTypes("Short.compare(a.{0}, b.{0})", "short"),
+         acceptTypes("Integer.compare(a.{0}, b.{0})", "int"),
          acceptType("Boolean.compare(a.{0}, b.{0})", "boolean"),
          acceptAll("nullSafeCompare(a.{0}, b.{0})")
    );
