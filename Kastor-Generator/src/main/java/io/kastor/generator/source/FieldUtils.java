@@ -20,8 +20,8 @@ public class FieldUtils {
             .collect(Collectors.toList());
    }
 
-   public static boolean exists(Element type, String field) {
-      return type.getEnclosedElements().stream()
+   public static boolean isFieldAbsent(Element type, String field) {
+      return !type.getEnclosedElements().stream()
             .filter(x -> x.getKind() == ElementKind.FIELD)
             .anyMatch(x -> x.toString().equals(field));
    }

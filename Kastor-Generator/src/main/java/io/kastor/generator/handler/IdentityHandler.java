@@ -35,12 +35,12 @@ public class IdentityHandler implements AnnotationHandler<KastorIdentity> {
       KastorIdentity annotation = type.getAnnotation(KastorIdentity.class);
 
       for (String field : annotation.excludeFields()) {
-         if (!FieldUtils.exists(type, field)) {
+         if (FieldUtils.isFieldAbsent(type, field)) {
             Logger.logError("Field " + field + " does not exist in class " + type + ". It couldn't be excluded from its identity.");
          }
       }
       for (String field : annotation.includeFields()) {
-         if (!FieldUtils.exists(type, field)) {
+         if (FieldUtils.isFieldAbsent(type, field)) {
             Logger.logError("Field " + field + " does not exist in class " + type + ". It couldn't be included from its identity.");
          }
       }

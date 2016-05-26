@@ -12,8 +12,8 @@ import static io.kastor.generator.source.FieldOperation.*;
 
 public class FieldComparisonFactory {
 
-   private static List<FieldStrategy> strategies = Arrays.asList(
-         acceptAnnotatedType("Comparator.compare(a.{0}, b.{0})"),
+   private static final List<FieldStrategy> STRATEGIES = Arrays.asList(
+         acceptAnnotatedType(),
          acceptType("Long.compare(a.{0}, b.{0})", "long"),
          acceptType("Float.compare(a.{0}, b.{0})", "float"),
          acceptType("Double.compare(a.{0}, b.{0})", "double"),
@@ -25,12 +25,12 @@ public class FieldComparisonFactory {
          acceptAll("nullSafeCompare(a.{0}, b.{0})")
    );
 
-   private static FieldStrategy acceptAnnotatedType(String operation) {
-      return new KastorAnnotatedFieldOperation(operation, KastorComparable.class);
+   private static FieldStrategy acceptAnnotatedType() {
+      return new KastorAnnotatedFieldOperation("Comparator.compare(a.{0}, b.{0})", KastorComparable.class);
    }
 
    public static FieldStrategy get(Element e) {
-      for (FieldStrategy s : strategies) {
+      for (FieldStrategy s : STRATEGIES) {
          if (s.isApplicable(e)) return s;
       }
       throw new IllegalArgumentException("No strategy found for " + e);

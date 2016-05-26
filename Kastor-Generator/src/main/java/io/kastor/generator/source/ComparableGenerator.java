@@ -49,7 +49,7 @@ public class ComparableGenerator {
    }
 
    private void generateGetComparatorMethod(TypeElement element, JavaClassSource javaClass) {
-      MethodSource<JavaClassSource> method = javaClass.addMethod()
+      javaClass.addMethod()
             .setName("getComparator")
             .setPublic()
             .setStatic(true)

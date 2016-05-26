@@ -4,8 +4,8 @@ import org.jboss.forge.roaster.model.source.JavaClassSource;
 
 public class GeneratedClass {
 
-   private String qualifiedName;
-   private String generatedSource;
+   private final String qualifiedName;
+   private final String generatedSource;
 
    public GeneratedClass(JavaClassSource javaClass) {
       this.qualifiedName = javaClass.getQualifiedName();

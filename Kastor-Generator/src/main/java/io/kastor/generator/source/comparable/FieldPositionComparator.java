@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class FieldPositionComparator implements Comparator<Element> {
 
-   private Map<String, Integer> positions = new HashMap<>();
+   private final Map<String, Integer> positions = new HashMap<>();
 
    public FieldPositionComparator(String[] orderedFields) {
       for (int i = 0; i < orderedFields.length; i++) {

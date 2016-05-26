@@ -12,8 +12,8 @@ import static io.kastor.generator.source.FieldOperation.*;
 
 public class FieldEqualityFactory {
 
-   private static List<FieldStrategy> strategies = Arrays.asList(
-         acceptAnnotatedType("Identity.equals(a.{0}, b.{0})"),
+   private static final List<FieldStrategy> STRATEGIES = Arrays.asList(
+         acceptAnnotatedType(),
          acceptNullableType("a.{0}.compareTo(b.{0}) == 0", "java.math.BigDecimal"),
          acceptNullableType("Double.doubleToLongBits(a.{0}) == Double.doubleToLongBits(b.{0})", "java.lang.Double"),
          acceptNullableType("Float.floatToIntBits(a.{0}) == Float.floatToIntBits(b.{0})", "java.lang.Float"),
@@ -23,8 +23,8 @@ public class FieldEqualityFactory {
          acceptAll("Objects.equals(a.{0}, b.{0})")
    );
 
-   private static FieldStrategy acceptAnnotatedType(String operation) {
-      return new KastorAnnotatedFieldOperation(operation, KastorIdentity.class);
+   private static FieldStrategy acceptAnnotatedType() {
+      return new KastorAnnotatedFieldOperation("Identity.equals(a.{0}, b.{0})", KastorIdentity.class);
    }
 
    private static FieldStrategy acceptNullableType(String operation, String type) {
@@ -32,7 +32,7 @@ public class FieldEqualityFactory {
    }
 
    public static FieldStrategy get(Element e) {
-      for (FieldStrategy s : strategies) {
+      for (FieldStrategy s : STRATEGIES) {
          if (s.isApplicable(e)) return s;
       }
       throw new IllegalArgumentException("No strategy found for " + e);

@@ -47,7 +47,7 @@ public abstract class AbstractIdentityTest<T> {
 
    private Stream<Pair<Supplier<T>>> getCombinaisons(Stream<Supplier<T>> values) {
       List<Supplier<T>> vs = values.collect(Collectors.toList());
-      return vs.stream().flatMap(x -> vs.stream().filter(y -> x != y).map(y -> new Pair<Supplier<T>>(x, y)));
+      return vs.stream().flatMap(x -> vs.stream().filter(y -> x != y).map(y -> new Pair<>(x, y)));
    }
 
    @Test
@@ -77,7 +77,7 @@ public abstract class AbstractIdentityTest<T> {
       assertThat(hashcode(null)).isZero();
    }
 
-   protected HashcodeExpectation expectHashcode(T value, int expected) {
+   protected HashcodeExpectation<T> expectHashcode(T value, int expected) {
       return new HashcodeExpectation(value, hashcode(value), expected);
    }
 

@@ -55,7 +55,7 @@ public class NullSafeCompareMethodGenerator {
 
       Predicate<Element> isPrimitiveType = (field) -> Arrays.stream(TypeKind.values())
             .filter(TypeKind::isPrimitive)
-            .map(x -> typeUtils.getPrimitiveType(x))
+            .map(typeUtils::getPrimitiveType)
             .anyMatch(x -> typeUtils.isSameType(x, field.asType()));
 
       Predicate<Element> isKastorComparable = (field) -> typeUtils

@@ -14,7 +14,6 @@
 
     <properties>
         <kastor.version>1.0-SNAPSHOT</kastor.version>
-
         <maven.serviceloader.plugin.version>1.0.4</maven.serviceloader.plugin.version>
     </properties>
 
@@ -25,13 +24,6 @@
             <artifactId>kastor-annotation</artifactId>
             <version>${kastor.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>io.kastor</groupId>
-            <artifactId>kastor-generator</artifactId>
-            <version>${kastor.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

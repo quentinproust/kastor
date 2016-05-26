@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 public class ComparatorMethodGenerator extends AbstractMethodGenerator {
 
-   private String[] orderedFields;
+   private final String[] orderedFields;
 
    public ComparatorMethodGenerator(TypeElement element, JavaClassSource javaClass) {
       super(element, javaClass);

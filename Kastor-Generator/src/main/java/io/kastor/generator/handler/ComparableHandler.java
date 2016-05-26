@@ -36,7 +36,7 @@ public class ComparableHandler implements AnnotationHandler<KastorComparable> {
       KastorComparable annotation = type.getAnnotation(KastorComparable.class);
 
       for (String field : annotation.order()) {
-         if (!FieldUtils.exists(type, field)) {
+         if (FieldUtils.isFieldAbsent(type, field)) {
             Logger.logError("Field " + field + " does not exist in class " + type + ". It couldn't be included in the comparator.");
          }
       }

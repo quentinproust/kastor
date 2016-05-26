@@ -11,8 +11,9 @@ public class GeneratedSourceFile {
 
    private static final InheritableThreadLocal<Filer> FILER =
          new InheritableThreadLocal<>();
-   private String qualifiedName;
-   private Element originalElement;
+
+   private final String qualifiedName;
+   private final Element originalElement;
 
    public GeneratedSourceFile(String qualifiedName, Element originalElement) {
       this.qualifiedName = qualifiedName;
