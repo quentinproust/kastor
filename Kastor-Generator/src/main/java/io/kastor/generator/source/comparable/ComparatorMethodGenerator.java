@@ -37,6 +37,8 @@ public class ComparatorMethodGenerator extends AbstractMethodGenerator {
    @Override
    protected void addMethodStart() {
       addLine("if (a == b) return 0;");
+      addLine("if (a == null) return -1;");
+      addLine("if (b == null) return 1;");
       addLine("int result = 0;");
    }
 
