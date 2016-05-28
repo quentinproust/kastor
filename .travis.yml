@@ -1,5 +1,5 @@
 language: java
-#script:
-#  - mvn test -f kastor-examples/pom.xml -v
+script:
+  - mvn test -f kastor-examples/pom.xml
 jdk:
   - oraclejdk8
