@@ -18,7 +18,7 @@ public class IdentityHandler implements AnnotationHandler<KastorIdentity> {
          validate(annotatedElement);
 
          GeneratedClass generatedClass = new IdentityGenerator().generateFor(annotatedElement);
-         new GeneratedSourceFile(generatedClass.getQualifiedName(), annotatedElement).write(generatedClass.getGeneratedSource());
+         new GeneratedSourceFile(generatedClass, annotatedElement).write();
       }
    }
 

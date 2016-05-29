@@ -18,7 +18,7 @@ public class ComparableHandler implements AnnotationHandler<KastorComparable> {
          validate(annotatedElement);
 
          GeneratedClass generatedClass = new ComparableGenerator().generateFor(annotatedElement);
-         new GeneratedSourceFile(generatedClass.getQualifiedName(), annotatedElement).write(generatedClass.getGeneratedSource());
+         new GeneratedSourceFile(generatedClass, annotatedElement).write();
       }
    }
 

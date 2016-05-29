@@ -12,11 +12,11 @@ public class GeneratedSourceFile {
    private static final InheritableThreadLocal<Filer> FILER =
          new InheritableThreadLocal<>();
 
-   private final String qualifiedName;
+   private final GeneratedClass generatedClass;
    private final Element originalElement;
 
-   public GeneratedSourceFile(String qualifiedName, Element originalElement) {
-      this.qualifiedName = qualifiedName;
+   public GeneratedSourceFile(GeneratedClass generatedClass, Element originalElement) {
+      this.generatedClass = generatedClass;
       this.originalElement = originalElement;
    }
 
@@ -24,14 +24,14 @@ public class GeneratedSourceFile {
       FILER.set(environment.getFiler());
    }
 
-   public void write(String generatedSourceCode) {
+   public void write() {
       try {
-         JavaFileObject sourceFile = FILER.get().createSourceFile(qualifiedName, originalElement);
+         JavaFileObject sourceFile = FILER.get().createSourceFile(generatedClass.getQualifiedName(), originalElement);
 
          try (
                final Writer writer = sourceFile.openWriter()
          ) {
-            writer.write(generatedSourceCode);
+            writer.write(generatedClass.getGeneratedSource());
          }
       } catch (IOException e) {
          throw new RuntimeException(e);
