@@ -1,6 +1,7 @@
 package io.kastor.generator.handler;
 
 import io.kastor.annotation.KastorComparable;
+import io.kastor.annotation.KastorComparables;
 import io.kastor.annotation.KastorIdentity;
 
 import java.util.HashMap;
@@ -12,6 +13,7 @@ public class HandlerConfiguration {
 
    public HandlerConfiguration() {
       handlers.put(KastorComparable.class, new ComparableHandler());
+      handlers.put(KastorComparables.class, new ComparablesHandler());
       handlers.put(KastorIdentity.class, new IdentityHandler());
    }
 

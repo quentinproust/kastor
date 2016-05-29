@@ -1,6 +1,7 @@
 package io.kastor.generator;
 
 import io.kastor.annotation.KastorComparable;
+import io.kastor.annotation.KastorComparables;
 import io.kastor.annotation.KastorIdentity;
 import io.kastor.generator.handler.HandlerConfiguration;
 import io.kastor.generator.source.GeneratedSourceFile;
@@ -17,13 +18,13 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-//io.kastor.generator.KastorAnnotationProcessor
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class KastorAnnotationProcessor extends AbstractProcessor {
 
    public Set<Class> getSupportedAnnotations() {
       Set<Class> annotations = new HashSet<>();
       annotations.add(KastorComparable.class);
+      annotations.add(KastorComparables.class);
       annotations.add(KastorIdentity.class);
       return annotations;
    }

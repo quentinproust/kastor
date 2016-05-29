@@ -33,11 +33,13 @@ public class ComparableHandler implements AnnotationHandler<KastorComparable> {
 
 
    private void validate(TypeElement type) {
-      KastorComparable annotation = type.getAnnotation(KastorComparable.class);
+      KastorComparable[] annotations = type.getAnnotationsByType(KastorComparable.class);
 
-      for (String field : annotation.order()) {
-         if (FieldUtils.isFieldAbsent(type, field)) {
-            Logger.logError("Field " + field + " does not exist in class " + type + ". It couldn't be included in the comparator.");
+      for (KastorComparable annotation : annotations) {
+         for (String field : annotation.order()) {
+            if (FieldUtils.isFieldAbsent(type, field)) {
+               Logger.logError("Field " + field + " does not exist in class " + type + ". It couldn't be included in the comparator.");
+            }
          }
       }
    }

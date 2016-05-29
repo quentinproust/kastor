@@ -15,10 +15,10 @@ public class ComparatorMethodGenerator extends AbstractMethodGenerator {
 
    private final String[] orderedFields;
 
-   public ComparatorMethodGenerator(TypeElement element, JavaClassSource javaClass) {
+   public ComparatorMethodGenerator(TypeElement element, KastorComparable comparable, JavaClassSource javaClass) {
       super(element, javaClass);
 
-      orderedFields = element.getAnnotation(KastorComparable.class).order();
+      orderedFields = comparable.order();
    }
 
    @Override

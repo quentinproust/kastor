@@ -47,4 +47,16 @@ public class Weapon {
             "'}";
    }
 
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (!(o instanceof Weapon)) return false;
+
+      return WeaponIdentity.equals(this, (Weapon) o);
+   }
+
+   @Override
+   public int hashCode() {
+      return WeaponIdentity.hashCode(this);
+   }
 }

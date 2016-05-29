@@ -5,6 +5,7 @@ import io.kastor.annotation.KastorIdentity;
 
 @KastorIdentity
 @KastorComparable(order = {"power", "weapon", "name"})
+@KastorComparable(name = "ByWeapon", order = {"weapon"})
 public class Hero {
 
    private String name;
@@ -44,5 +45,18 @@ public class Hero {
             ", power=" + power +
             ", weapon=" + weapon +
             '}';
+   }
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (!(o instanceof Hero)) return false;
+
+      return HeroIdentity.equals(this, (Hero) o);
+   }
+
+   @Override
+   public int hashCode() {
+      return HeroIdentity.hashCode(this);
    }
 }

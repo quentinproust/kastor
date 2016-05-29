@@ -18,4 +18,8 @@ public class Logger {
       MESSAGER.get().printMessage(Diagnostic.Kind.ERROR, errorMessage);
    }
 
+   public static void logError(String errorMessage, Object... params) {
+      MESSAGER.get().printMessage(Diagnostic.Kind.ERROR, String.format(errorMessage, params));
+   }
+
 }
