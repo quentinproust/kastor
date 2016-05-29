@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.atIndex;
 
 public class WeaponComparatorTest {
 
@@ -22,18 +23,28 @@ public class WeaponComparatorTest {
       return weapon;
    }
 
+   private Stream<Weapon> getUnsortedHeros() {
+      return Stream.of(bow, excalibur, masamune, nyoibo, morgul);
+   }
+
    @Test
    public void sortUsingComparator() {
-      assertThat(Stream.of(bow, excalibur, masamune, nyoibo, morgul))
-            .usingElementComparator(WeaponComparator.getComparator())
-            .contains(bow, morgul, nyoibo, excalibur, masamune);
+      assertThat(getUnsortedHeros().sorted(WeaponComparator.getComparator()))
+            .contains(bow, atIndex(0))
+            .contains(morgul, atIndex(1))
+            .contains(nyoibo, atIndex(2))
+            .contains(excalibur, atIndex(3))
+            .contains(masamune, atIndex(4));
    }
 
    @Test
    public void sortUsingCompareMethod() {
-      assertThat(Stream.of(bow, excalibur, masamune, nyoibo, morgul))
-            .usingElementComparator(WeaponComparator::compare)
-            .contains(bow, morgul, nyoibo, excalibur, masamune);
+      assertThat(getUnsortedHeros().sorted(WeaponComparator::compare))
+            .contains(bow, atIndex(0))
+            .contains(morgul, atIndex(1))
+            .contains(nyoibo, atIndex(2))
+            .contains(excalibur, atIndex(3))
+            .contains(masamune, atIndex(4));
    }
 
    @Test
