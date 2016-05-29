@@ -5,17 +5,16 @@ import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 
 import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 public abstract class AbstractMethodGenerator {
 
-   private final TypeElement element;
+   private final Element element;
    private final JavaClassSource javaClass;
    private MethodSource<JavaClassSource> method;
 
-   public AbstractMethodGenerator(TypeElement element, JavaClassSource javaClass) {
+   public AbstractMethodGenerator(Element element, JavaClassSource javaClass) {
       this.element = element;
       this.javaClass = javaClass;
    }
@@ -33,11 +32,11 @@ public abstract class AbstractMethodGenerator {
 
    protected abstract void addMethodStart();
 
-   protected abstract MethodSource<JavaClassSource> getMethodSignature(TypeElement element, JavaClassSource javaClass);
+   protected abstract MethodSource<JavaClassSource> getMethodSignature(Element element, JavaClassSource javaClass);
 
    protected abstract void addMethodEnd();
 
-   private void addFieldOperations(TypeElement element) {
+   private void addFieldOperations(Element element) {
       getFieldStream(element)
             .map(this::getFieldOperation)
             .filter(Optional::isPresent)

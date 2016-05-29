@@ -8,7 +8,6 @@ import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 
 import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
@@ -19,12 +18,12 @@ public class EqualityMethodGenerator extends AbstractMethodGenerator {
 
    private Set<String> fields;
 
-   public EqualityMethodGenerator(TypeElement element, JavaClassSource javaClass) {
+   public EqualityMethodGenerator(Element element, JavaClassSource javaClass) {
       super(element, javaClass);
       getFieldsToInclude(element);
    }
 
-   private void getFieldsToInclude(TypeElement element) {
+   private void getFieldsToInclude(Element element) {
       KastorIdentity annotation = element.getAnnotation(KastorIdentity.class);
 
       fields = new HashSet<>();
@@ -36,7 +35,7 @@ public class EqualityMethodGenerator extends AbstractMethodGenerator {
    }
 
    @Override
-   protected MethodSource<JavaClassSource> getMethodSignature(TypeElement element, JavaClassSource javaClass) {
+   protected MethodSource<JavaClassSource> getMethodSignature(Element element, JavaClassSource javaClass) {
       MethodSource<JavaClassSource> equalityMethod = javaClass.addMethod()
             .setPublic()
             .setStatic(true)

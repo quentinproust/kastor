@@ -6,7 +6,6 @@ import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 
 import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -15,14 +14,14 @@ public class ComparatorMethodGenerator extends AbstractMethodGenerator {
 
    private final String[] orderedFields;
 
-   public ComparatorMethodGenerator(TypeElement element, KastorComparable comparable, JavaClassSource javaClass) {
+   public ComparatorMethodGenerator(Element element, KastorComparable comparable, JavaClassSource javaClass) {
       super(element, javaClass);
 
       orderedFields = comparable.order();
    }
 
    @Override
-   protected MethodSource<JavaClassSource> getMethodSignature(TypeElement element, JavaClassSource javaClass) {
+   protected MethodSource<JavaClassSource> getMethodSignature(Element element, JavaClassSource javaClass) {
       MethodSource<JavaClassSource> equalityMethod = javaClass.addMethod()
             .setPublic()
             .setReturnType("int")

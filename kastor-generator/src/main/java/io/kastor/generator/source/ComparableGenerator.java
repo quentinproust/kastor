@@ -8,7 +8,7 @@ import org.jboss.forge.roaster.Roaster;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 
-import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.Element;
 import java.util.Objects;
 
 public class ComparableGenerator {
@@ -16,10 +16,10 @@ public class ComparableGenerator {
    public static final String CLASS_SUFFIX = "Comparator";
    public static final String INTERNAL_CLASS_SUFFIX = "Internal" + CLASS_SUFFIX;
 
-   private TypeElement element;
+   private Element element;
    private JavaClassSource javaClass;
 
-   public GeneratedClass generateFor(TypeElement element) {
+   public GeneratedClass generateFor(Element element) {
       this.element = element;
       javaClass = createClass(element);
 
@@ -66,7 +66,7 @@ public class ComparableGenerator {
             );
    }
 
-   private JavaClassSource createInternalComparatorClass(TypeElement element, KastorComparable comparable) {
+   private JavaClassSource createInternalComparatorClass(Element element, KastorComparable comparable) {
       final JavaClassSource comparatorClass = Roaster.create(JavaClassSource.class);
       comparatorClass
             .setPackage(element.getEnclosingElement().toString())
@@ -77,7 +77,7 @@ public class ComparableGenerator {
       return comparatorClass;
    }
 
-   private JavaClassSource createClass(TypeElement element) {
+   private JavaClassSource createClass(Element element) {
       final JavaClassSource javaClass = Roaster.create(JavaClassSource.class);
       javaClass.setPackage(element.getEnclosingElement().toString())
             .setName(element.getSimpleName() + CLASS_SUFFIX)

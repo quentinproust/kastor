@@ -8,7 +8,6 @@ import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
 
 import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
@@ -18,13 +17,13 @@ import java.util.stream.Stream;
 public class HashcodeMethodGenerator extends AbstractMethodGenerator {
    private Set<String> fields;
 
-   public HashcodeMethodGenerator(TypeElement element, JavaClassSource javaClass) {
+   public HashcodeMethodGenerator(Element element, JavaClassSource javaClass) {
       super(element, javaClass);
 
       getFieldsToInclude(element);
    }
 
-   private void getFieldsToInclude(TypeElement element) {
+   private void getFieldsToInclude(Element element) {
       KastorIdentity annotation = element.getAnnotation(KastorIdentity.class);
 
       fields = new HashSet<>();
@@ -36,7 +35,7 @@ public class HashcodeMethodGenerator extends AbstractMethodGenerator {
    }
 
    @Override
-   protected MethodSource<JavaClassSource> getMethodSignature(TypeElement element, JavaClassSource javaClass) {
+   protected MethodSource<JavaClassSource> getMethodSignature(Element element, JavaClassSource javaClass) {
       MethodSource<JavaClassSource> method = javaClass.addMethod()
             .setPublic()
             .setStatic(true)

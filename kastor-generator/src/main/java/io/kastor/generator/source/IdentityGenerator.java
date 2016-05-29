@@ -6,14 +6,14 @@ import io.kastor.generator.source.hashcode.HashcodeMethodGenerator;
 import org.jboss.forge.roaster.Roaster;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 
-import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.Element;
 import java.util.Objects;
 
 public class IdentityGenerator {
 
    public static final String CLASS_SUFFIX = "Identity";
 
-   public GeneratedClass generateFor(TypeElement element) {
+   public GeneratedClass generateFor(Element element) {
       final JavaClassSource javaClass = createClass(element);
       new EqualityMethodGenerator(element, javaClass).generate();
       new HashcodeMethodGenerator(element, javaClass).generate();
@@ -21,7 +21,7 @@ public class IdentityGenerator {
       return new GeneratedClass(javaClass);
    }
 
-   private JavaClassSource createClass(TypeElement element) {
+   private JavaClassSource createClass(Element element) {
       final JavaClassSource javaClass = Roaster.create(JavaClassSource.class);
       javaClass.setPackage(element.getEnclosingElement().toString())
             .setName(element.getSimpleName() + CLASS_SUFFIX)
