@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 
 public class EqualityMethodGenerator extends AbstractMethodGenerator {
 
+   private final FieldEqualityFactory fieldOpterationFactory = new FieldEqualityFactory();
    private Set<String> fields;
 
    public EqualityMethodGenerator(Element element, JavaClassSource javaClass) {
@@ -66,7 +67,7 @@ public class EqualityMethodGenerator extends AbstractMethodGenerator {
 
    @Override
    protected Optional<String> getFieldOperation(Element field) {
-      return FieldEqualityFactory.get(field).getFieldOperation(field)
+      return fieldOpterationFactory.getFieldOperation(field)
             .map(c -> "if (!(" + c + ")) { return false; }");
    }
 }

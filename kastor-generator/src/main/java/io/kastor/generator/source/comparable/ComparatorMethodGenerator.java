@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 public class ComparatorMethodGenerator extends AbstractMethodGenerator {
 
+   private final FieldComparisonFactory fieldOperationFactory = new FieldComparisonFactory();
    private final String[] orderedFields;
 
    public ComparatorMethodGenerator(Element element, KastorComparable comparable, JavaClassSource javaClass) {
@@ -59,7 +60,7 @@ public class ComparatorMethodGenerator extends AbstractMethodGenerator {
 
    @Override
    protected Optional<String> getFieldOperation(Element field) {
-      return FieldComparisonFactory.get(field).getFieldOperation(field)
+      return fieldOperationFactory.getFieldOperation(field)
             .map(x -> "if (result == 0) { result = " + x + "; }");
    }
 }

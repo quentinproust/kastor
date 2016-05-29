@@ -1,16 +1,16 @@
 package io.kastor.generator.source.equality;
 
 import io.kastor.annotation.KastorIdentity;
+import io.kastor.generator.source.AbstractFieldStrategyFactory;
 import io.kastor.generator.source.FieldStrategy;
 import io.kastor.generator.source.KastorAnnotatedFieldOperation;
 
-import javax.lang.model.element.Element;
 import java.util.Arrays;
 import java.util.List;
 
 import static io.kastor.generator.source.FieldOperation.*;
 
-public class FieldEqualityFactory {
+public class FieldEqualityFactory extends AbstractFieldStrategyFactory {
 
    private static final List<FieldStrategy> STRATEGIES = Arrays.asList(
          acceptAnnotatedType(),
@@ -31,11 +31,8 @@ public class FieldEqualityFactory {
       return acceptType("!(a.{0} == b.{0} || (a.{0} != null && " + operation + "))", type);
    }
 
-   public static FieldStrategy get(Element e) {
-      for (FieldStrategy s : STRATEGIES) {
-         if (s.isApplicable(e)) return s;
-      }
-      throw new IllegalArgumentException("No strategy found for " + e);
+   @Override
+   public List<FieldStrategy> getStrategies() {
+      return STRATEGIES;
    }
-
 }

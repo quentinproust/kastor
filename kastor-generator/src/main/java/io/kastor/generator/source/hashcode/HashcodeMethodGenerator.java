@@ -15,6 +15,8 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 public class HashcodeMethodGenerator extends AbstractMethodGenerator {
+
+   private final FieldHashcodeFactory fieldOperationFactory = new FieldHashcodeFactory();
    private Set<String> fields;
 
    public HashcodeMethodGenerator(Element element, JavaClassSource javaClass) {
@@ -64,7 +66,7 @@ public class HashcodeMethodGenerator extends AbstractMethodGenerator {
 
    @Override
    protected Optional<String> getFieldOperation(Element field) {
-      return FieldHashcodeFactory.get(field).getFieldOperation(field)
+      return fieldOperationFactory.getFieldOperation(field)
             .map(c -> "result = 31 * result + " + c + ";");
    }
 
