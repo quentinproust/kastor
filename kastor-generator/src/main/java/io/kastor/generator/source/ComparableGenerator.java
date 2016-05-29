@@ -2,7 +2,6 @@ package io.kastor.generator.source;
 
 
 import io.kastor.annotation.KastorComparable;
-import io.kastor.generator.source.comparable.ComparatorMethodGenerator;
 import io.kastor.generator.source.comparable.NullSafeCompareMethodGenerator;
 import org.jboss.forge.roaster.Roaster;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
@@ -14,7 +13,6 @@ import java.util.Objects;
 public class ComparableGenerator {
 
    public static final String CLASS_SUFFIX = "Comparator";
-   public static final String INTERNAL_CLASS_SUFFIX = "Internal" + CLASS_SUFFIX;
 
    private Element element;
    private JavaClassSource javaClass;
@@ -35,10 +33,7 @@ public class ComparableGenerator {
    }
 
    private void generateComparator(KastorComparable comparable) {
-      final JavaClassSource comparatorClass = createInternalComparatorClass(element, comparable);
-
-      new ComparatorMethodGenerator(element, comparable, comparatorClass).generate();
-
+      JavaClassSource comparatorClass = new InternalComparableGenerator(element, comparable).generate();
       javaClass.addNestedType(comparatorClass);
    }
 
@@ -64,17 +59,6 @@ public class ComparableGenerator {
             .setBody(
                   "return new " + element.getSimpleName() + comparable.name() + "InternalComparator();"
             );
-   }
-
-   private JavaClassSource createInternalComparatorClass(Element element, KastorComparable comparable) {
-      final JavaClassSource comparatorClass = Roaster.create(JavaClassSource.class);
-      comparatorClass
-            .setPackage(element.getEnclosingElement().toString())
-            .setName(element.getSimpleName() + comparable.name() + INTERNAL_CLASS_SUFFIX)
-            .setPrivate()
-            .setStatic(true)
-            .addInterface("java.util.Comparator<" + element + ">");
-      return comparatorClass;
    }
 
    private JavaClassSource createClass(Element element) {
