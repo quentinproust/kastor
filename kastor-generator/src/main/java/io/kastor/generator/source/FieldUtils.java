@@ -21,9 +21,7 @@ public class FieldUtils {
    }
 
    public static boolean isFieldAbsent(Element type, String field) {
-      return !type.getEnclosedElements().stream()
-            .filter(x -> x.getKind() == ElementKind.FIELD)
-            .anyMatch(x -> x.toString().equals(field));
+      return !getFields(type).anyMatch(x -> x.toString().equals(field));
    }
 
    public static Optional<String> getFieldGetter(Element field) {
