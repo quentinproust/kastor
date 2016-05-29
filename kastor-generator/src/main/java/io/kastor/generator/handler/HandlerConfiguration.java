@@ -6,6 +6,7 @@ import io.kastor.annotation.KastorIdentity;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class HandlerConfiguration {
 
@@ -15,6 +16,10 @@ public class HandlerConfiguration {
       handlers.put(KastorComparable.class, new ComparableHandler());
       handlers.put(KastorComparables.class, new ComparablesHandler());
       handlers.put(KastorIdentity.class, new IdentityHandler());
+   }
+
+   public Set<Class> getSupportedAnnotations() {
+      return handlers.keySet();
    }
 
    public AnnotationHandler getHandler(Class theClass) {
