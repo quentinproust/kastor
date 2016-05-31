@@ -1,11 +1,13 @@
 package io.kastor.examples;
 
+import io.kastor.annotation.KastorBuilder;
 import io.kastor.annotation.KastorComparable;
 import io.kastor.annotation.KastorIdentity;
 
 @KastorIdentity
 @KastorComparable(order = {"power", "weapon", "name"})
 @KastorComparable(name = "ByWeapon", order = {"weapon"})
+@KastorBuilder()
 public class Hero {
 
    private String name;

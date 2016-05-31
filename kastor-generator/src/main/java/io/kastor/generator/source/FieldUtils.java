@@ -40,4 +40,18 @@ public class FieldUtils {
       return methodName.equalsIgnoreCase(getMethodName) || methodName.equalsIgnoreCase(isMethodName);
    }
 
+   public static Optional<String> getFieldSetter(Element field) {
+      return field.getEnclosingElement().getEnclosedElements().stream()
+            .filter(x -> x.getKind() == ElementKind.METHOD)
+            .filter(x -> isFieldSetter(field, x))
+            .map(x -> x.getSimpleName().toString())
+            .findFirst();
+   }
+
+   private static boolean isFieldSetter(Element field, Element method) {
+      String methodName = method.getSimpleName().toString();
+      String getMethodName = "set" + field.getSimpleName().toString();
+
+      return methodName.equalsIgnoreCase(getMethodName);
+   }
 }

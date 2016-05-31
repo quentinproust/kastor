@@ -1,5 +1,6 @@
 package io.kastor.generator.handler;
 
+import io.kastor.annotation.KastorBuilder;
 import io.kastor.annotation.KastorComparable;
 import io.kastor.annotation.KastorComparables;
 import io.kastor.annotation.KastorIdentity;
@@ -16,6 +17,7 @@ public class HandlerConfiguration {
       handlers.put(KastorComparable.class, new ComparableHandler());
       handlers.put(KastorComparables.class, new ComparablesHandler());
       handlers.put(KastorIdentity.class, new IdentityHandler());
+      handlers.put(KastorBuilder.class, new BuilderHandler());
    }
 
    public Set<Class> getSupportedAnnotations() {
