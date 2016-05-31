@@ -1,4 +1,8 @@
-package io.kastor.examples;
+package io.kastor.examples.identity;
+
+import io.kastor.examples.Hero;
+import io.kastor.examples.HeroIdentity;
+import io.kastor.examples.Weapon;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;

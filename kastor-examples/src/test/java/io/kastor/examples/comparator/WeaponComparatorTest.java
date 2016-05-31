@@ -1,5 +1,7 @@
-package io.kastor.examples;
+package io.kastor.examples.comparator;
 
+import io.kastor.examples.Weapon;
+import io.kastor.examples.WeaponComparator;
 import org.junit.Test;
 
 import java.util.stream.Stream;

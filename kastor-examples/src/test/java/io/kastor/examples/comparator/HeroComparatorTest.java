@@ -1,14 +1,17 @@
-package io.kastor.examples;
+package io.kastor.examples.comparator;
 
+import io.kastor.examples.Hero;
+import io.kastor.examples.HeroComparator;
+import io.kastor.examples.Weapon;
 import org.junit.Test;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.data.Index.atIndex;
+import static org.assertj.core.api.Assertions.atIndex;
 
-public class HeroByWeaponComparatorTest {
+public class HeroComparatorTest {
 
    private Supplier<Hero> arthur = () -> createHero("King Arthur", 350);
    private Supplier<Hero> ringWraith = () -> createHero("Ringwraith", 650);
@@ -52,12 +55,12 @@ public class HeroByWeaponComparatorTest {
             getHeroWithWeapon(honjo, masamune),
             getHeroWithWeapon(robin, bow),
             getHeroWithWeapon(ringWraith, morgul)
-      ).sorted(HeroComparator.getByWeaponComparator()))
+      ).sorted(HeroComparator.getComparator()))
             .contains(getHeroWithWeapon(robin, bow), atIndex(0))
-            .contains(getHeroWithWeapon(ringWraith, morgul), atIndex(1))
-            .contains(getHeroWithWeapon(sangoku, nyoibo), atIndex(2))
-            .contains(getHeroWithWeapon(arthur, excalibur), atIndex(3))
-            .contains(getHeroWithWeapon(honjo, masamune), atIndex(4));
+            .contains(getHeroWithWeapon(arthur, excalibur), atIndex(1))
+            .contains(getHeroWithWeapon(honjo, masamune), atIndex(2))
+            .contains(getHeroWithWeapon(ringWraith, morgul), atIndex(3))
+            .contains(getHeroWithWeapon(sangoku, nyoibo), atIndex(4));
    }
 
    @Test
@@ -68,12 +71,12 @@ public class HeroByWeaponComparatorTest {
             getHeroWithWeapon(honjo, masamune),
             getHeroWithWeapon(robin, bow),
             getHeroWithWeapon(ringWraith, morgul)
-      ).sorted(HeroComparator::compareByWeapon))
+      ).sorted(HeroComparator::compare))
             .contains(getHeroWithWeapon(robin, bow), atIndex(0))
-            .contains(getHeroWithWeapon(ringWraith, morgul), atIndex(1))
-            .contains(getHeroWithWeapon(sangoku, nyoibo), atIndex(2))
-            .contains(getHeroWithWeapon(arthur, excalibur), atIndex(3))
-            .contains(getHeroWithWeapon(honjo, masamune), atIndex(4));
+            .contains(getHeroWithWeapon(arthur, excalibur), atIndex(1))
+            .contains(getHeroWithWeapon(honjo, masamune), atIndex(2))
+            .contains(getHeroWithWeapon(ringWraith, morgul), atIndex(3))
+            .contains(getHeroWithWeapon(sangoku, nyoibo), atIndex(4));
    }
 
    @Test
@@ -81,9 +84,9 @@ public class HeroByWeaponComparatorTest {
       assertThat(Stream.of(
             sangoku.get(),
             arthur.get()
-      ).sorted(HeroComparator::compareByWeapon))
-            .contains(sangoku.get(), atIndex(0))
-            .contains(arthur.get(), atIndex(1));
+      ).sorted(HeroComparator::compare))
+            .contains(arthur.get(), atIndex(0))
+            .contains(sangoku.get(), atIndex(1));
    }
 
    @Test
@@ -91,22 +94,26 @@ public class HeroByWeaponComparatorTest {
       assertThat(Stream.of(
             sangoku.get(),
             getHeroWithWeapon(sangoku, nyoibo)
-      ).sorted(HeroComparator::compareByWeapon))
+      ).sorted(HeroComparator::compare))
             .contains(sangoku.get(), atIndex(0))
             .contains(getHeroWithWeapon(sangoku, nyoibo), atIndex(1));
    }
 
    @Test
    public void compareWithNull() {
-      assertThat(Stream.of(getHeroWithWeapon(sangoku, nyoibo), null, getHeroWithWeapon(arthur, excalibur))
-            .sorted(HeroComparator.getByWeaponComparator()))
+      assertThat(Stream.of(
+            getHeroWithWeapon(sangoku, nyoibo),
+            null,
+            getHeroWithWeapon(arthur, excalibur)
+      ).sorted(HeroComparator.getComparator()))
             .contains(null, atIndex(0))
-            .contains(getHeroWithWeapon(sangoku, nyoibo), atIndex(1))
-            .contains(getHeroWithWeapon(arthur, excalibur), atIndex(2));
+            .contains(getHeroWithWeapon(arthur, excalibur), atIndex(1))
+            .contains(getHeroWithWeapon(sangoku, nyoibo), atIndex(2))
+      ;
    }
 
    @Test
    public void compareWithTwoNull() {
-      assertThat(HeroComparator.compareByWeapon(null, null)).isZero();
+      assertThat(HeroComparator.compare(null, null)).isZero();
    }
 }

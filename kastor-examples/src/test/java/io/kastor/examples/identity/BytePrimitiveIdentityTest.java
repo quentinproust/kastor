@@ -1,4 +1,7 @@
-package io.kastor.examples;
+package io.kastor.examples.identity;
+
+import io.kastor.examples.BytePrimitiveType;
+import io.kastor.examples.BytePrimitiveTypeIdentity;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;

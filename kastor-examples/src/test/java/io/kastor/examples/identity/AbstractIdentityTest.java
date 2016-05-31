@@ -1,4 +1,4 @@
-package io.kastor.examples;
+package io.kastor.examples.identity;
 
 import org.assertj.core.api.SoftAssertions;
 import org.junit.After;
