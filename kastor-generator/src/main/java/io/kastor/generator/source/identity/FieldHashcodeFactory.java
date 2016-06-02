@@ -1,4 +1,4 @@
-package io.kastor.generator.source.hashcode;
+package io.kastor.generator.source.identity;
 
 import io.kastor.annotation.KastorIdentity;
 import io.kastor.generator.source.AbstractFieldStrategyFactory;

@@ -1,8 +1,7 @@
-package io.kastor.generator.source;
+package io.kastor.generator.source.identity;
 
 
-import io.kastor.generator.source.equality.EqualityMethodGenerator;
-import io.kastor.generator.source.hashcode.HashcodeMethodGenerator;
+import io.kastor.generator.source.GeneratedClass;
 import org.jboss.forge.roaster.Roaster;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 

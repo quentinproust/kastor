@@ -1,4 +1,4 @@
-package io.kastor.generator.source.equality;
+package io.kastor.generator.source.identity;
 
 
 import io.kastor.annotation.KastorIdentity;
@@ -14,13 +14,14 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-public class EqualityMethodGenerator extends AbstractMethodGenerator {
+public class HashcodeMethodGenerator extends AbstractMethodGenerator {
 
-   private final FieldEqualityFactory fieldOpterationFactory = new FieldEqualityFactory();
+   private final FieldHashcodeFactory fieldOperationFactory = new FieldHashcodeFactory();
    private Set<String> fields;
 
-   public EqualityMethodGenerator(Element element, JavaClassSource javaClass) {
+   public HashcodeMethodGenerator(Element element, JavaClassSource javaClass) {
       super(element, javaClass);
+
       getFieldsToInclude(element);
    }
 
@@ -37,27 +38,25 @@ public class EqualityMethodGenerator extends AbstractMethodGenerator {
 
    @Override
    protected MethodSource<JavaClassSource> getMethodSignature(Element element, JavaClassSource javaClass) {
-      MethodSource<JavaClassSource> equalityMethod = javaClass.addMethod()
+      MethodSource<JavaClassSource> method = javaClass.addMethod()
             .setPublic()
             .setStatic(true)
-            .setReturnType("boolean")
-            .setName("equals");
+            .setReturnType("int")
+            .setName("hashCode");
 
-      equalityMethod.addParameter(element.getSimpleName().toString(), "a");
-      equalityMethod.addParameter(element.getSimpleName().toString(), "b");
-
-      return equalityMethod;
+      method.addParameter(element.getSimpleName().toString(), "o");
+      return method;
    }
 
    @Override
    protected void addMethodStart() {
-      addLine("if (a == b) { return true; }");
-      addLine("if (a == null || b == null) { return false; }");
+      addLine("if (o == null) { return 0; }");
+      addLine("int result = 1;");
    }
 
    @Override
    protected void addMethodEnd() {
-      addLine("return true;");
+      addLine("return result;");
    }
 
    @Override
@@ -67,7 +66,8 @@ public class EqualityMethodGenerator extends AbstractMethodGenerator {
 
    @Override
    protected Optional<String> getFieldOperation(Element field) {
-      return fieldOpterationFactory.getFieldOperation(field)
-            .map(c -> "if (!(" + c + ")) { return false; }");
+      return fieldOperationFactory.getFieldOperation(field)
+            .map(c -> "result = 31 * result + " + c + ";");
    }
+
 }
