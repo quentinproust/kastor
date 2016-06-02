@@ -1,8 +1,8 @@
-package io.kastor.generator.source;
+package io.kastor.generator.source.comparable;
 
 
 import io.kastor.annotation.KastorComparable;
-import io.kastor.generator.source.comparable.NullSafeCompareMethodGenerator;
+import io.kastor.generator.source.GeneratedClass;
 import org.jboss.forge.roaster.Roaster;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 import org.jboss.forge.roaster.model.source.MethodSource;
