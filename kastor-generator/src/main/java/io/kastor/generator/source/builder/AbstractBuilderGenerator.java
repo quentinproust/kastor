@@ -1,6 +1,7 @@
-package io.kastor.generator.source;
+package io.kastor.generator.source.builder;
 
 import io.kastor.annotation.KastorBuilder;
+import io.kastor.generator.source.FieldUtils;
 import org.jboss.forge.roaster.Roaster;
 import org.jboss.forge.roaster.model.source.JavaClassSource;
 

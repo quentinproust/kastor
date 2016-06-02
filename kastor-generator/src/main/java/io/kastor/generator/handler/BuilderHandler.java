@@ -2,10 +2,10 @@ package io.kastor.generator.handler;
 
 import io.kastor.annotation.KastorBuilder;
 import io.kastor.generator.Logger;
-import io.kastor.generator.source.BuilderGenerator;
 import io.kastor.generator.source.FieldUtils;
 import io.kastor.generator.source.GeneratedClass;
 import io.kastor.generator.source.GeneratedSourceFile;
+import io.kastor.generator.source.builder.BuilderGenerator;
 
 import javax.lang.model.element.Element;
 import java.util.Set;

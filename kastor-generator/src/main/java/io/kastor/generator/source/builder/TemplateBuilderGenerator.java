@@ -1,4 +1,4 @@
-package io.kastor.generator.source;
+package io.kastor.generator.source.builder;
 
 import javax.lang.model.element.Element;
 
