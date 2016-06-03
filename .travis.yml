@@ -1,5 +1,18 @@
+#language: java
+#script:
+#  - mvn test -f kastor-examples/pom.xml -v
+#jdk:
+#  - oraclejdk8
+
 language: java
-script:
-  - mvn test -f kastor-examples/pom.xml -v
+script: mvn clean install -P strict
 jdk:
+#  - oraclejdk7
   - oraclejdk8
+#branches:
+#  only:
+#  - master
+sudo: false
+cache:
+  directories:
+    - $HOME/.m2
