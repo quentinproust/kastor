@@ -46,9 +46,9 @@ public abstract class AbstractBuilderGenerator {
    private void getFieldsToInclude(Element element) {
       Set<String> fieldNames = getFieldNames(element);
 
-      fields = new HashSet<>(FieldUtils.getFields(element)
+      fields = FieldUtils.getFields(element)
             .filter(x -> fieldNames.contains(x.toString()))
-            .collect(Collectors.toList()));
+            .collect(Collectors.toSet());
    }
 
    private Set<String> getFieldNames(Element element) {
