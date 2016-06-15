@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/quentinproust/kastor.svg?branch=master)](https://travis-ci.org/quentinproust/kastor)
 
-Kastor is Java [Annotation Processor](http://docs.oracle.com/javase/7/docs/api/javax/annotation/processing/Processor.html) generating boring but useful code. 
+Kastor is Java [Annotation Processor](http://docs.oracle.com/javase/8/docs/api/javax/annotation/processing/Processor.html) generating boring but useful code. 
 
 The advantages of using Kastor : 
 * It doesn't modify your code. 
