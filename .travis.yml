@@ -3,3 +3,14 @@ script:
   - mvn test -f kastor-examples/pom.xml -v
 jdk:
   - oraclejdk8
+# updating jdk8 as the version used by tracis ci is broken :
+# https://github.com/travis-ci/travis-ci/issues/3259
+# https://bugs.openjdk.java.net/browse/JDK-8051443
+sudo: false
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+cache:
+  directories:
+    - $HOME/.m2
