@@ -35,6 +35,20 @@ public class IdentityHandler implements AnnotationHandler<KastorIdentity> {
             Logger.logError("Field " + field + " does not exist in class " + type + ". It couldn't be included from its identity.");
          }
       }
+
+      boolean implementsEquals = type.getEnclosedElements().stream()
+            .anyMatch(x -> x.toString().equals("equals(java.lang.Object)"));
+      if (!implementsEquals) {
+         Logger.logError("Class %s is annotated with KastorIdentity. " +
+               "It should implement equals (by calling the *Identity generated class).", type);
+      }
+
+      boolean implementsHashCode = type.getEnclosedElements().stream()
+            .anyMatch(x -> x.toString().equals("hashCode()"));
+      if (!implementsHashCode) {
+         Logger.logError("Class %s is annotated with KastorIdentity. " +
+               "It should implement hashCode (by calling the *Identity generated class).", type);
+      }
    }
 
 }
